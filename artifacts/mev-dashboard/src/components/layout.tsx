@@ -8,8 +8,10 @@ import {
   Zap,
   Power,
   Server,
-  Languages
+  Languages,
+  LogOut,
 } from "lucide-react";
+import { useAuth } from "@/lib/auth";
 import { useGetBotStatus, useStartBot, useStopBot, getGetBotStatusQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "./ui/button";
@@ -20,6 +22,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const queryClient = useQueryClient();
   const { t, lang, setLang, isRTL } = useLang();
+  const { user, logout } = useAuth();
   
   const { data: botStatus } = useGetBotStatus({
     query: { refetchInterval: 3000 }
@@ -112,6 +115,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Power className={`h-4 w-4 ${isRTL ? "ml-2" : "mr-2"}`} />
               {isRunning ? t.layout.stopBot : t.layout.initialize}
             </Button>
+
+            {/* Logged-in user + logout */}
+            <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-[10px] font-bold text-primary uppercase">
+                    {user?.username?.[0] ?? "?"}
+                  </span>
+                </div>
+                <span className="text-xs text-muted-foreground truncate">{user?.username}</span>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 text-muted-foreground hover:text-destructive shrink-0"
+                title="Sign out"
+                onClick={logout}
+              >
+                <LogOut className="h-3.5 w-3.5" />
+              </Button>
+            </div>
           </div>
         </aside>
 
