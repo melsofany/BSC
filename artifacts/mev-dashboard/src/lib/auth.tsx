@@ -29,11 +29,9 @@ export function triggerSessionExpired() {
 
 const TOKEN_KEY = "arb_token";
 
-const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
-
 async function verifyToken(token: string): Promise<AuthUser | null> {
   try {
-    const res = await fetch(`${BASE}/api/auth/me`, {
+    const res = await fetch(`/api/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) return null;
@@ -77,7 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
       try {
-        await fetch(`${BASE}/api/auth/logout`, {
+        await fetch(`/api/auth/logout`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
         });

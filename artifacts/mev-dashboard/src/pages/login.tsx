@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { useLocation } from "wouter";
 
-const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
-
 export default function Login() {
   const { login } = useAuth();
   const [, navigate] = useLocation();
@@ -17,7 +15,7 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      const res = await fetch(`${BASE}/api/auth/login`, {
+      const res = await fetch(`/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: username.trim(), password }),
