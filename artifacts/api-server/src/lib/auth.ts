@@ -95,7 +95,7 @@ export async function seedAdminUser(): Promise<void> {
 
   if (existing.length > 0) return; // already seeded
 
-  const username = process.env["ADMIN_USERNAME"] ?? "admin";
+  const username = process.env["ADMIN_USERNAME"] ?? "admin@company.com";
   const password = process.env["ADMIN_PASSWORD"] ?? "admin123";
   const passwordHash = await hashPassword(password);
 

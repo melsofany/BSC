@@ -66,7 +66,7 @@ export default function Login() {
                 className="w-full h-10 px-3 rounded-md border border-input bg-background text-foreground text-sm
                            focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring
                            placeholder:text-muted-foreground"
-                placeholder="admin"
+                placeholder="admin@company.com"
                 required
               />
             </div>
